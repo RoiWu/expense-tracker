@@ -2,7 +2,7 @@
 <div class="container d-flex flex-column align-items-center p-3">
   <div class="dropdown form-group col-6 p-1">
     <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
-      <option class='selector-title selector' value="/sort/all" selected>種類</option>
+      <option class='selector-title selector' value="/sort/all" selected>全部種類</option>
       <option class='home selector' value="/sort/home">家居物業</option>
       <option class='transport selector' value="/sort/transport">交通出行</option>
       <option class="entertainment selector" value="/sort/entertainment">休閒娛樂</option>
@@ -16,24 +16,35 @@
     <h1 class="text-warning pt-2">213546</h1>
   </div>
 
+  {{#each todolists}}
   <div class="costlist col-12 p-1 d-flex">
     <div class="col-3"></div>
     <div class="detail col-6 d-flex align-items-center justify-content-between bg-light">
       <div class="info d-flex align-items-center">
-        <i class="fas fa-home fa-2x"></i>
-        <div class="name-date pl-2">
-          <div class="name">午餐</div>
-          <div class="date">2019/04/23</div>
+        <div class="icon text-center" style='width:50px;height:auto;'>
+          {{#ifcond this.category "===" "家居物業"}}<i class="fas fa-home fa-2x"></i>{{/ifcond}}
+          {{#ifcond this.category "===" "交通出行"}}<i class="fas fa-shuttle-van fa-2x"></i>{{/ifcond}}
+          {{#ifcond this.category "===" "休閒娛樂"}}<i class="fas fa-grin-beam fa-2x"></i>{{/ifcond}}
+          {{#ifcond this.category "===" "餐飲食品"}}<i class="fas fa-utensils fa-2x"></i>{{/ifcond}}
+          {{#ifcond this.category "===" "其他"}}<i class="fas fa-pen fa-2x"></i>{{/ifcond}}
+        </div>
+        <div class="name-date">
+          <div class="name">{{this.name}}</div>
+          <div class="date">{{this.date}}</div>
         </div>
       </div>
-      <div class="price h5 pr-3 align-middle">60</div>
+      <div class="price h5 pr-3 align-middle">{{this.amount}}</div>
     </div>
-    <div class="col-3 d-flex align-items-center justify-content-end">
-      <a href="" class="p-2" style="min-width: 50px;">修改</a>
+    <div class="col-2 d-flex align-items-center justify-content-end">
+      <a href="/detail/{{this._id}}/edit" class="p-2" style="min-width: 50px;">修改</a>
       <a href="" class="p-2" style="min-width: 50px;">刪除</a>
     </div>
   </div>
-  <button class="add m-4">新增支出</button>
+  {{/each}}
+
+  <form method="get" action="/detail/new">
+    <button class="add m-4" type="submit">新增支出</button>
+  </form>
 </div>
 
 <!--

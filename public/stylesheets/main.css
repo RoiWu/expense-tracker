@@ -1,6 +1,9 @@
 /* {
   border: 1px solid black;
 }*/
+.hint-head {
+  font-size: 0.4rem;
+}
 
 header {
   overflow: hidden;

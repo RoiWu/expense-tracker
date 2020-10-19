@@ -9,10 +9,10 @@ router.get('/new', (req, res) => {
 
 //UPDATE 編輯餐廳資訊
 router.get('/:id/edit', (req, res) => {
-  const id = Number(req.params.id)
-  Record.findOne({ id: id }) // 取出 Todo model 裡的所有資料
+  const id = req.params.id
+  Record.findById(id) // 取出 Todo model 裡的所有資料
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurant => res.render('edit', { restaurant })) // 將資料傳給 index 樣板
+    .then(todo => res.render('edit', { todo })) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
 })
 
