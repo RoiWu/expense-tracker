@@ -1,6 +1,27 @@
 /* {
   border: 1px solid black;
 }*/
+
+.modify-btn {
+  color: black;
+  font-weight:normal;
+}
+
+.modify-btn:hover{
+  color: black;
+  font-weight:bold;
+  text-decoration:none;
+}
+
+.fas {
+  color: 	#00CED1;
+  opacity : 0.5;
+}
+
+.costlist:nth-child(odd) .detail{
+  background-color: #DCDCDC;
+	}
+
 .hint-head {
   font-size: 0.7rem;
 }
