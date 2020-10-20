@@ -1,7 +1,7 @@
 {
   "name": "expense-tracker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple restaurant website built with Node.js and Express.",
   "main": "app.js",
   "scripts": {
     "testseed": "node models/seeds/todolistsSeeder.js"
@@ -14,5 +14,14 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.10.7",
     "package.json": "^2.0.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RoiWu/expense-tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RoiWu/expense-tracker/issues"
+  },
+  "homepage": "https://github.com/RoiWu/expense-tracker#readme"
 }

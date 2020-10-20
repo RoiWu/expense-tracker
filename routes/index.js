@@ -3,12 +3,10 @@ const router = express.Router()
 
 const home = require('./modules/home')
 const detail = require('./modules/detail')
-// const search = require('./modules/search')
-// const sort = require('./modules/sort')
+const filter = require('./modules/filter')
 
 router.use('/', home)
 router.use('/detail', detail)
-// router.use('/search', search)
-// router.use('/sort', sort)
+router.use('/filter', filter)
 
 module.exports = router

@@ -7,6 +7,13 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 
+router.post('/', (req, res) => {
+  const { name, date, category, amount} = req.body
+  Record.create({name, date, category, amount})
+        .then(() => res.redirect('/'))
+        .catch(error => console.log(error))  
+})
+
 //UPDATE 編輯餐廳資訊
 router.get('/:id/edit', (req, res) => {
   const id = req.params.id
@@ -18,20 +25,20 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id/', (req, res) => {
   const id = req.params.id
-  return Record.findOne({ id: id })
-    .then(restaurant => {
-      restaurant = Object.assign(restaurant, req.body)
-      return restaurant.save()  // save 是 mongoose 提供的方法
+  return Record.findById(id) // 取出 Todo model 裡的所有資料
+    .then(todo => {
+      todo = Object.assign(todo, req.body)
+      return todo.save()  // save 是 mongoose 提供的方法
     })
-    .then(() => res.redirect(`/restaurants/${id}`))
+    .then(() => res.redirect("/"))
     .catch(error => console.log(error))
 })
 
 //DELETE 刪除餐廳
 router.delete('/:id/', (req, res) => {
   const id = req.params.id
-  return Record.findOne({ id: id })
-    .then(restaurant => restaurant.remove())
+  return Record.findById(id)
+    .then(todo => todo.remove())
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })

@@ -1,6 +1,6 @@
 <div class="container h-100">
   <div class="row h-100 my-auto justify-content-center align-items-center text-center">
-    <form class="col-4 mt-5" action="/restaurants" method="POST" onsubmit="return editCheckAgain()">
+    <form class="col-4 mt-5" action="/detail" method="POST" onsubmit="return editCheckAgain()">
       <div class="hint d-flex mb-3">
         <div class="hint-head col-4">*必填欄位</div>
         <div class="hint-content col-6">請輸入你的支出</div>
@@ -15,18 +15,18 @@
       </div>
       <div class="category d-flex mb-3">
         <div class="title col-4">類別*：</div>
-        <select name="category" id="inputState" class="form-control selector">
-          <option value="" disabled selected>Select</option>
-          <option class='selector'>家居物業</option>
-          <option class='selector'>交通出行</option>
-          <option class="selector">休閒娛樂</option>
-          <option class="selector">餐飲食品</option>
-          <option class='selector'>其他</option>
+        <select required name="category" id="inputState" class="form-control selector">
+          <option value="" disabled selected hidden>Select</option>
+          <option class='selector' value="家居物業">家居物業</option>
+          <option class='selector' value="交通出行">交通出行</option>
+          <option class="selector" value="休閒娛樂">休閒娛樂</option>
+          <option class="selector" value="餐飲食品">餐飲食品</option>
+          <option class='selector' value="其他">其他</option>
         </select>
       </div>
       <div class="money d-flex mb-3">
         <div class="title col-4">金額*：</div>
-        <input required type="number" placeholder="" name="money" class="form-control input-area">
+        <input required type="number" placeholder="" name="amount" class="form-control input-area">
       </div>
       <button type="submit" class="btn btn-outline-danger mt-3 mb-5">新增支出</button>
     </form>
