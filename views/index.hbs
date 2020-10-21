@@ -3,16 +3,11 @@
   <div class="dropdown form-group col-6 p-1">
     <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
       <option class='selector-title selector' value="/filter/all">全部種類</option>
-      <option class='home selector' value="/filter/家居物業" {{#ifcond category "===" "家居物業"}} selected {{/ifcond}}>家居物業
-      </option>
-      <option class='transport selector' value="/filter/交通出行" {{#ifcond category "===" "交通出行"}} selected {{/ifcond}}>
-        交通出行</option>
-      <option class="entertainment selector" value="/filter/休閒娛樂" {{#ifcond category "===" "休閒娛樂"}} selected
-        {{/ifcond}}>休閒娛樂</option>
-      <option class="food selector" value="/filter/餐飲食品" {{#ifcond category "===" "餐飲食品"}} selected {{/ifcond}}>餐飲食品
-      </option>
-      <option class='others selector' value="/filter/其他" {{#ifcond category "===" "其他"}} selected {{/ifcond}}>其他
-      </option>
+
+      {{#each categories}}
+      <option class='selector' value="/filter/{{this.category}}" {{#ifcond ../category "===" this.category}} selected {{/ifcond}}>{{this.category}}</option>
+      {{/each}}
+
     </select>
   </div>
 
@@ -27,11 +22,9 @@
     <div class="detail col-6 d-flex align-items-center justify-content-between">
       <div class="info d-flex align-items-center">
         <div class="icon text-center" style='width:50px;height:auto;'>
-          {{#ifcond this.category "===" "家居物業"}}<i class="fas fa-home fa-2x"></i>{{/ifcond}}
-          {{#ifcond this.category "===" "交通出行"}}<i class="fas fa-shuttle-van fa-2x"></i>{{/ifcond}}
-          {{#ifcond this.category "===" "休閒娛樂"}}<i class="fas fa-grin-beam fa-2x"></i>{{/ifcond}}
-          {{#ifcond this.category "===" "餐飲食品"}}<i class="fas fa-utensils fa-2x"></i>{{/ifcond}}
-          {{#ifcond this.category "===" "其他"}}<i class="fas fa-pen fa-2x"></i>{{/ifcond}}
+          {{#each ../categories}}
+          {{#ifcond ../this.category "===" this.category}}<i class="{{this.icon}}"></i>{{/ifcond}}
+          {{/each}}
         </div>
         <div class="name-date">
           <div class="name">{{this.name}}</div>
@@ -44,92 +37,13 @@
       <a href="/detail/{{this._id}}/edit" class="modify-btn p-2" style="min-width: 50px;">修改</a>
       <form action="/detail/{{ this._id }}?_method=DELETE" method="POST" style="min-width: 50px;"
         onsubmit="return deleteCheckAgain()" class="btn-form p-2">
-        <button type="submit" class="modify-btn" style="border: none; background: transparent;">刪除</button>
+        <button type="submit" class="btn btn-link modify-btn" style="border: none; background: transparent;">刪除</button>
       </form>
     </div>
   </div>
   {{/each}}
 
   <form method="get" action="/detail/new">
-    <button class="add m-4" type="submit">新增支出</button>
+    <button class="btn btn-danger m-4" type="submit">新增支出</button>
   </form>
 </div>
-
-<!--
-<div class="container search-bar">
-  <div class="search-bar-outer">
-    <h4 class="mb-2">尋找餐廳：</h4>
-    <div class="search-bar-inner d-flex">
-      <div class="col-10 ml-0 pl-0">
-        <form action="/search">
-          <div class="input-group">
-            <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-              value="{{keyword}}" aria-describedby="search-button">
-            <div class="input-group-append">
-              <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="dropdown form-group h-100 justify-content-sm-end col-2 pl-1">
-        <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
-          <option class='selector-title selector' selected>排列</option>
-          <option class='sort-asc selector' value="/sort/name/asc">餐廳名稱 (A ~ Z)</option>
-          <option class='sort-desc selector' value="/sort/name/desc">餐廳名稱 (Z ~ A)</option>
-          <option class="rating-desc selector" value="/sort/rating/desc">顧客評價 (高 ~ 低)</option>
-          <option class="rating-asc selector" value="/sort/rating/asc">顧客評價 (低 ~ 高)</option>
-          <option class='category-asc selector' value="/sort/category/asc">餐廳種類 (A ~ Z)</option>
-          <option class='category-desc selector' value="/sort/category/desc">餐廳種類 (Z ~ A)</option>
-          <option class='location-asc selector' value="/sort/location/asc">餐廳地點 (A ~ Z)</option>
-          <option class='location-desc selector' value="/sort/location/desc">餐廳地點 (Z ~ A)</option>
-        </select>
-      </div>
-    </div>
-  </div>
-</div>
--->
-
-<!-- restaurant list 
-<div class="container mt-5">
-  <div class="row">
-    <div class="col-md-10 col-12 mx-auto">
-      <div class="card-columns">
-
-        {{#each restaurants}}
-        <a href="/restaurants/{{this.id}}" class="text-secondary">
-          <div class="card mb-3">
-            <div class="card-photo">
-              <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}">
-            </div>
-            <div class="card-body p-3">
-              <h6 class="card-title mb-1">{{this.name}}</h6>
-
-              <div class="restaurant-category mb-1">
-                <i class="fas fa-utensils pr-2"></i> {{this.category}}
-              </div>
-
-              <div class="infobar d-flex justify-content-between">
-                <span class="badge badge-pill badge-danger font-weight-normal d-flex align-items-center">
-                  {{this.rating}}
-                  <i class="fas fa-star fa-xs ml-1"></i>
-                </span>
-                <div class="edit">
-                  <a href="/restaurants/{{this.id}}/edit"><i class="fas fa-pencil-alt ml-4 mr-1 fa-s"></i></a>
-                  <form action="/restaurants/{{ this.id }}?_method=DELETE" method="POST" style="display: inline;"
-                    onsubmit="return deleteCheckAgain()">
-                    <button type="submit" style="border: none; background: transparent;"
-                      class="fas fa-times-circle fa-s">
-                    </button>
-                  </form>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </a>
-        {{/each}}
-
-      </div>
-    </div>
-  </div>
-</div> -->

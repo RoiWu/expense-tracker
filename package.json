@@ -4,7 +4,8 @@
   "description": "A simple restaurant website built with Node.js and Express.",
   "main": "app.js",
   "scripts": {
-    "testseed": "node models/seeds/todolistsSeeder.js"
+    "seed": "node models/seeds/todolistsSeeder.js && node models/seeds/categorySeeder.js",
+    "dev": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",

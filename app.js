@@ -10,7 +10,7 @@ require('./config/mongoose')
 
 const app = express()
 const hbs = exphbs.create({ defaultLayout: 'main', extname: '.hbs', helpers: require('./utils/hbsHelpers') });
-const port = 3000
+const port = process.env.PORT || 3000
 
 // setting template engine
 app.engine('hbs', hbs.engine)

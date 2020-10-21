@@ -1,25 +1,26 @@
 
 # Describe
-A simple restaurant website built with Node.js and Express.
+A simple TODO LIST website built with Node.js and Express.
 
 ## Features
-1. Search restaurant by name
-3. Show a restaurant detail page 
+1. Create new events
+2. Edit/Delete events
+3. events classify 
 
 ## Getting Started
 Clone repository to your local computer
 ```
-$ git clone https://github.com/RoiWu/AlphaCamp.git
+$ git clone https://github.com/RoiWu/expense-tracker.git
 ```
-To RestaurantList Location 
+To Folder Location 
 ```
-$ cd AlphaCamp/RestaurantList
+$ cd expense-tracker
 ```
 Install by [npm](https://www.npmjs.com/)
 ```
 $ npm install
 ```
-Execute seeder
+Execute seeder 
 ```
 $ npm run seed
 ```
@@ -43,5 +44,3 @@ http://localhost:3000
 ## Author
 Roi Wu
 
-## Reference
-https://github.com/ShihTingJustin/FeedYourSoul

@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const Record = require('../../models/Record')
+const Category = require('../../models/Category') // 載入 todo model
 
 //READ 瀏覽所有餐廳
 router.get('/', (req, res) => {
@@ -12,7 +13,10 @@ router.get('/', (req, res) => {
       for (let todo of todolists) {
         sum += todo.amount
       }
-      res.render('index', { sum, todolists })
+
+      Category.find().lean()
+        .then(categories => res.render('index', { sum, todolists, categories}))
+        .catch(error => console.error(error)) // 錯誤處理
     }) // 將資料傳給 index 樣板
     .catch(error => console.error(error)) // 錯誤處理
 })
