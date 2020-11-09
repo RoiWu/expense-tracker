@@ -1,15 +1,29 @@
 <!-- search bar -->
 <div class="container d-flex flex-column align-items-center p-3">
-  <div class="dropdown form-group col-6 p-1">
-    <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
-      <option class='selector-title selector' value="/filter/all">全部種類</option>
+  <div class="col-6 d-flex p-1">
+    <div class="dropdown form-group col-6">
+      <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
+        <option class='selector-title selector' value="/filter/month/all">不分月份</option>
 
-      {{#each categories}}
-      <option class='selector' value="/filter/{{this.category}}" {{#ifcond ../category "===" this.category}} selected {{/ifcond}}>{{this.category}}</option>
-      {{/each}}
+        {{#each months}}
+        <option class='selector' value="/filter/month/{{this.name}}" {{#ifcond ../month "===" this.name}} selected
+          {{/ifcond}}>{{this.name}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <div class="dropdown form-group col-6">
+      <select onchange="location = this.value;" name="sorting" id="inputState" class="form-control selector">
+        <option class='selector-title selector' value="/filter/category/all">全部種類</option>
 
-    </select>
+        {{#each categories}}
+        <option class='selector' value="/filter/category/{{this.category}}" {{#ifcond ../category "===" this.category}}
+          selected {{/ifcond}}>{{this.category}}</option>
+        {{/each}}
+
+      </select>
+    </div>
   </div>
+
 
   <div class="totalamount d-flex justify-content-between col-6 p-1">
     <div>總金額：</div>

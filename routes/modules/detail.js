@@ -8,10 +8,11 @@ router.get('/new', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-  const { name, date, category, amount} = req.body
-  Record.create({name, date, category, amount})
-        .then(() => res.redirect('/'))
-        .catch(error => console.log(error))  
+  const userId = req.user._id
+  const { name, date, category, merchant, amount } = req.body
+  Record.create({ name, date, category, merchant, amount, userId })
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
 })
 
 //UPDATE 編輯餐廳資訊
@@ -25,6 +26,7 @@ router.get('/:id/edit', (req, res) => {
 
 router.put('/:id/', (req, res) => {
   const id = req.params.id
+  const userId = req.user._id
   return Record.findById(id) // 取出 Todo model 裡的所有資料
     .then(todo => {
       todo = Object.assign(todo, req.body)
