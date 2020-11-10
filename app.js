@@ -17,7 +17,7 @@ const usePassport = require('./config/passport')
 require('./config/mongoose')
 
 const app = express()
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 
 const hbs = exphbs.create({ defaultLayout: 'main', extname: '.hbs', helpers: require('./utils/hbsHelpers') });
 
@@ -27,7 +27,7 @@ app.set('view engine', 'hbs')
 
 // login admission
 app.use(session({
-  secret: process.env.SESSION_SECRET || "ThisIsMySecret",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
