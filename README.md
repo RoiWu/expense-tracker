@@ -28,10 +28,10 @@ Execute seeder
 $ npm run seed
 ```
 Then You can use defaut account to login the web ...
-
-  email: 'root@example.com'
-  password: '12345678'
-
+```
+email: root@example.com
+password: 12345678
+```
 
 Execute app
 ```
