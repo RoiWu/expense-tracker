@@ -10,10 +10,33 @@ router.get('/login', (req, res) => {
   res.render('login')
 })
 
+/*
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
   failureRedirect: 'users/login'
-}))
+}))*/
+
+router.post('/login', function(req, res, next) {
+  const { email } = req.body
+  const errors = []
+  // 在 routes 的 handler 中使用 passport.authenticate
+  passport.authenticate('local', function(err, user, info) {
+
+    if (err) { errors.push({ message: "登入時發生問題..."}) }
+
+    // 如果找不到使用者
+    if (!user) { errors.push({ message: "帳號密碼不正確！"}) }
+    
+    if (errors.length) {
+      return res.render('login', {errors, email})
+    } else {
+      req.logIn(user, function(err) {
+        if (err) { return next(err) }
+        return res.redirect('/')
+      })
+    }
+  })(req, res, next);
+})
 
 router.get('/register', (req, res) => {
   res.render('register')
