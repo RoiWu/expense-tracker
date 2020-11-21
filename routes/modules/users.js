@@ -13,30 +13,61 @@ router.get('/login', (req, res) => {
 /*
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/',
-  failureRedirect: 'users/login'
+  failureRedirect: 'users/login',
+  failureFlash: true
 }))*/
 
-router.post('/login', function(req, res, next) {
+const loginfn = (req, res) => new Promise((resolve, reject) => {
+  passport.authenticate('local', function (err, user) {
+    let errors = []
+    // 若登入發生錯誤
+    if (err) {
+      errors.push({ message: '登入時發生問題...' })
+    }
+    // 如果找不到使用者
+    if (!user) {
+      errors.push({ message: '帳號密碼不正確！' })
+    }
+    return resolve({ errors, user })
+  })(req, res);
+})
+
+router.post('/login', async (req, res) => {
+  const { errors, user } = await loginfn(req, res)
+  // 登入
+  if (errors.length) {
+    const { email } = req.body
+    res.render('login', { errors, email })
+  } else {
+    req.logIn(user, function (err) {
+      if (err) { return next(err) }
+      return res.redirect('/')
+    })
+  }
+})
+
+/*
+router.post('/login', function (req, res, next) {
   const { email } = req.body
   const errors = []
   // 在 routes 的 handler 中使用 passport.authenticate
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', function (err, user, info) {
 
-    if (err) { errors.push({ message: "登入時發生問題..."}) }
+    if (err) { errors.push({ message: "登入時發生問題..." }) }
 
     // 如果找不到使用者
-    if (!user) { errors.push({ message: "帳號密碼不正確！"}) }
-    
+    if (!user) { errors.push({ message: "帳號密碼不正確！" }) }
+
     if (errors.length) {
-      return res.render('login', {errors, email})
+      return res.render('login', { errors, email })
     } else {
-      req.logIn(user, function(err) {
+      req.logIn(user, function (err) {
         if (err) { return next(err) }
         return res.redirect('/')
       })
     }
   })(req, res, next);
-})
+})*/
 
 router.get('/register', (req, res) => {
   res.render('register')
