@@ -9,6 +9,29 @@ module.exports = app => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  passport.use(
+    new LocalStrategy({ usernameField: "email" }, (email, password, done) => {
+      User.findOne({
+        email: email,
+      }).then((user) => {
+        if (!user) {
+          return done(null, false, { message: "That email is not registered" });
+        }
+        //use bcrypt to compare user input password and database password
+        bcrypt.compare(password, user.password, (err, isMatch) => {
+          if (err) throw err;
+          if (isMatch) {
+            return done(null, user);
+          } else {
+            return done(null, false, {
+              message: "Email and Password incorrect",
+            });
+          }
+        });
+      });
+    })
+  );
+
   passport.use(new FacebookStrategy({
     clientID: process.env.FACEBOOK_ID,
     clientSecret: process.env.FACEBOOK_SECRET,

@@ -29,6 +29,7 @@ const loginfn = (req, res) => new Promise((resolve, reject) => {
       errors.push({ message: '帳號密碼不正確！' })
     }
     return resolve({ errors, user })
+    return reject({ errors, user })
   })(req, res);
 })
 
@@ -67,8 +68,8 @@ router.post('/login', function (req, res, next) {
       })
     }
   })(req, res, next);
-})*/
-
+})
+*/
 router.get('/register', (req, res) => {
   res.render('register')
 })
